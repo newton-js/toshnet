@@ -1,70 +1,70 @@
-
 const yearEl = document.querySelector(".year");
 const currentYear = new Date().getFullYear();
-yearEl.textContent = currentYear
+yearEl.textContent = currentYear;
 ///////////////////////////////////////////////////////////
 
 // Making Mobile Navigation Works //
 const btnNavEl = document.querySelector(".btn-mobile-nav");
-const headerEl = document.querySelector(".header")
+const headerEl = document.querySelector(".header");
 
-btnNavEl.addEventListener("click", function (){
-  headerEl.classList.toggle('nav-open')
-})
+btnNavEl.addEventListener("click", function () {
+  headerEl.classList.toggle("nav-open");
+});
 
 ///////////////////////////////////////////////////////////
 //Sticky Navigation
 
 const sectionHeroEl = document.querySelector(".section-hero");
-const obs = new IntersectionObserver(function(entries){
-  const ent = entries[0];
+const obs = new IntersectionObserver(
+  function (entries) {
+    const ent = entries[0];
 
-  if(ent.isIntersecting === false){
-    document.body.classList.add("sticky")
+    if (ent.isIntersecting === false) {
+      document.body.classList.add("sticky");
+    }
+
+    if (ent.isIntersecting === true) {
+      document.body.classList.remove("sticky");
+    }
+  },
+  {
+    //in the viewport
+    root: null,
+    threshold: 0,
+    rootMargin: "-80px",
   }
-
-  if(ent.isIntersecting === true){
-    document.body.classList.remove("sticky")
-  }
-
-},
-{
-  //in the viewport
-  root: null,
-  threshold: 0,
-  rootMargin: '-80px'
-});
-obs.observe(sectionHeroEl)
+);
+obs.observe(sectionHeroEl);
 
 ///////////////////////////////////////////////////////////
 //  smooth scroll
 const allLinks = document.querySelectorAll("a:link");
 
-allLinks.forEach(link => {
-  link.addEventListener("click", (e)=>{
+allLinks.forEach((link) => {
+  link.addEventListener("click", (e) => {
     e.preventDefault();
     const href = link.getAttribute("href");
     console.log(href);
     // scroll back to top
-    if(href === "#"){
+    if (href === "#") {
       window.scrollTo({
         top: 0,
-        behavior: "smooth"
-      })
+        behavior: "smooth",
+      });
     }
     // scroll to other links
-    if (href !== "#" && href.startsWith("#")){
-     const sectionEl = document.querySelector(href)
-     sectionEl.scrollIntoView({behavior: "smooth"})
+    if (href !== "#" && href.startsWith("#")) {
+      const sectionEl = document.querySelector(href);
+      sectionEl.scrollIntoView({ behavior: "smooth" });
     }
     // close mobile navigation
-    if (link.classList.contains("main-nav-link")){
-      headerEl.classList.toggle("nav-open")
+    if (link.classList.contains("main-nav-link")) {
+      headerEl.classList.toggle("nav-open");
     }
-  })
-})
 
-
+    window.location.href = href;
+  });
+});
 
 // tab
 
@@ -92,49 +92,44 @@ tab.addEventListener("click", function (e) {
   document.querySelector(`.item-${data}`).classList.add("tabbed-item-active");
 });
 
-
-
 // slider //
-const slides = document.querySelectorAll('.slide');
-const prevBtn = document.querySelector('.slide-left');
-const nextBtn = document.querySelector('.slide-right');
+const slides = document.querySelectorAll(".slide");
+const prevBtn = document.querySelector(".slide-left");
+const nextBtn = document.querySelector(".slide-right");
 
-const goToSlide = function (slide){
-    slides.forEach((s, i) => {
-        s.style.transform = `translateX(${(i-slide)* 100}%)`
-    });
+const goToSlide = function (slide) {
+  slides.forEach((s, i) => {
+    s.style.transform = `translateX(${(i - slide) * 100}%)`;
+  });
 };
 
 goToSlide(0);
 let currentSlide = 0;
-let maxSlide = slides.length-1
+let maxSlide = slides.length - 1;
 
-const next = function (){
-    if (currentSlide === maxSlide){
-        currentSlide = 0;
-    }else{
-        currentSlide ++;
-    }
+const next = function () {
+  if (currentSlide === maxSlide) {
+    currentSlide = 0;
+  } else {
+    currentSlide++;
+  }
 
-    goToSlide(currentSlide);
+  goToSlide(currentSlide);
 };
 
-const prev = function (){
-    if (currentSlide === 0){
-        currentSlide = maxSlide
-    }else{
-        currentSlide --;
-    }
-    goToSlide(currentSlide);
+const prev = function () {
+  if (currentSlide === 0) {
+    currentSlide = maxSlide;
+  } else {
+    currentSlide--;
+  }
+  goToSlide(currentSlide);
 };
 
-prevBtn.addEventListener('click', prev);
-nextBtn.addEventListener('click', next);
+prevBtn.addEventListener("click", prev);
+nextBtn.addEventListener("click", next);
 
 setInterval(() => next(), 4000);
-
-
-
 
 ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////
@@ -144,22 +139,22 @@ setInterval(() => next(), 4000);
 //     flex.style.display = "flex";
 //     flex.style.flexDirection = "column";
 //     flex.style.rowGap = "1px";
-  
+
 //     flex.appendChild(document.createElement("div"));
 //     flex.appendChild(document.createElement("div"));
-  
+
 //     document.body.appendChild(flex);
 //     var isSupported = flex.scrollHeight === 1;
 //     flex.parentNode.removeChild(flex);
 //     console.log(isSupported);
-  
+
 //     if (!isSupported) document.body.classList.add("no-flexbox-gap");
 //   }
 //   checkFlexGap();
-  
-  // https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js
-  
-  /*
+
+// https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js
+
+/*
   .no-flexbox-gap .main-nav-list li:not(:last-child) {
     margin-right: 4.8rem;
   }
@@ -209,4 +204,3 @@ setInterval(() => next(), 4000);
     }
   }
   */
-  
